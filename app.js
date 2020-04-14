@@ -11,7 +11,7 @@ app.get("/",function(req,res){
 })
 
 app.get("/game",function(req,res){
-    res.send("Strat the ga,e");
+    res.render("draw");
 })
 
 server = app.listen(3000,function(){
@@ -22,6 +22,7 @@ const io = require('socket.io')(server);
 
 var users = [];
 const users_id = {};
+var line_history = [];
 
 io.on('connection',function(socket){
     socket.on('new-user',function(name){
@@ -29,13 +30,24 @@ io.on('connection',function(socket){
         users_id[socket.id] = name;
         io.sockets.emit('user-connected',users);
     });
+    socket.on('lobby-leader',function(){
+        io.sockets.emit('button-spawn',users);
+    })
     socket.on('start',function(data){
         io.sockets.emit('start-game');
-    })
+    });
     socket.on('disconnect',function(){
         id_to_delete = users_id[socket.id];
         var index = users.indexOf(id_to_delete);
         users.splice(index,1);
         socket.broadcast.emit('user-disconnected',users);
+    });
+    for(var i in line_history){
+        socket.emit('draw_line',{line:line_history[i]});
+    }
+
+    socket.on('draw_line',function(data){
+        line_history.push(data.line);
+        io.emit('draw_line',{line:data.line});
     });
 });
