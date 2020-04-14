@@ -1,4 +1,4 @@
-Implemented lobby feature.
-Implemented lobby leader and drawing feature.
+Implemented lobby feature. <br />
+Implemented lobby leader and drawing feature.  <br />
 
 ##WORK IN PROGRESS

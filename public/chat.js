@@ -35,6 +35,15 @@ socket.on('user-disconnected',function(users){
         listElement.innerText = element;
         container.append(listElement);
     });  
+    if(users.indexOf(name) === 0){
+        var button = document.createElement('button');
+        if(document.contains(document.getElementById('start-button')) === false){
+            button.setAttribute("id","start-button");
+            button.innerHTML = "CLICK ME MOW";
+            button.onclick = clickFunc;
+            body.appendChild(button);
+        }
+    }
 });
 
 socket.on('start-game',function(){
