@@ -1,11 +1,57 @@
 * { 
     margin: 0;
     padding: 0;
- }
- body, html{
-    width: 100%;
-    height: 100%;
- }
- #canvas {
-    display: block;
- }
+}
+
+.division{
+   background-color: orange;
+}
+
+.row{
+   width:100%;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.col-6{
+   width:50%;
+}
+
+.players{
+   margin-left: 20%;
+   color: white;
+}
+
+.players p{
+   font-size: 25px;
+   display: inline;
+   padding: 0 20px;
+   border: 2px solid red;
+   margin-right: 15px;
+}
+
+
+/* IMPORTED */
+#chatroom{
+   background-color: white;
+   height: 135px;
+   border: 5px inset #8258FA;
+   margin-top:5px;
+   overflow: auto;
+}
+
+#send_container{
+   margin-top: 20px;
+}
+
+#message{
+   border: 5px inset #8258FA;
+   width:500px;
+}
+
+#send_message{
+   border-radius: 10px;
+   background-color: cyan;
+   width:50px;
+}

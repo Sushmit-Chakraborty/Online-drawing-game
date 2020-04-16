@@ -11,7 +11,7 @@ app.get("/",function(req,res){
 })
 
 app.get("/game",function(req,res){
-    res.render("draw");
+    res.render("draw",{usersList:users});
 })
 
 server = app.listen(3000,function(){
@@ -49,5 +49,14 @@ io.on('connection',function(socket){
     socket.on('draw_line',function(data){
         line_history.push(data.line);
         io.emit('draw_line',{line:data.line});
+    });
+
+    socket.on('fetch-user-list',function(){
+        console.log(users);
+        io.sockets.emit('user-list',users);
+    });
+
+    socket.on('send-chat-message',(message) => {
+        socket.broadcast.emit('chat-message',{message: message, name:users[socket.id]});
     });
 });

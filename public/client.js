@@ -1,4 +1,39 @@
 document.addEventListener("DOMContentLoaded",function(){
+
+    var socket = io.connect();
+    container = document.getElementById('container');
+
+    socket.on("user-list",function(users){
+        console.log(users);
+    });
+
+    // Chat feature
+    var messageInput = document.getElementById('message'); //messagebox message-input (both inside send-container)
+    var send_message = document.getElementById('send_message'); //sendbutton 
+    var chatroom = document.getElementById("chatroom"); //Mesage display box (message container)
+    var messageForm = document.getElementById('send_container');
+
+    socket.on('chat-message',data => {
+        appendMessage(`${data.message}`);
+    })
+
+    messageForm.addEventListener('submit',e => {
+        e.preventDefault()
+        const message = messageInput.value;
+        appendMessage(`You: ${message}`)
+        socket.emit('send-chat-message',message);
+        messageInput.value = "";
+    })
+    
+    function appendMessage(message){
+        const messageElement = document.createElement('div');
+        messageElement.innerText = message;
+        chatroom.append(messageElement);
+        messageElement.style.cssText = "background-color: #81DAF5;font-size:25px;";
+    }
+
+    //Drawing feature
+
     var mouse = {
         click: false,
         move: false,
@@ -9,9 +44,10 @@ document.addEventListener("DOMContentLoaded",function(){
     var canvas = document.getElementById('drawing');
     var context = canvas.getContext('2d');
     var width = window.innerWidth;
-    var height = window.innerHeight;
+    var height = 550;
     var socket = io.connect();
-
+    
+    context.fillStyle = "orange";
     canvas.width = width;
     canvas.height = height;
 

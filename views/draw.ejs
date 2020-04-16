@@ -9,5 +9,24 @@
    </head>
    <body>
       <canvas id="drawing"></canvas>
+      <div class="division">
+         <div class="row">
+            <div class="col-6">
+               <div class="players">
+                  <h2 style="margin-bottom: 20px;">Players</h2>
+                  <% usersList.forEach(element => {%>
+                     <p><%=element%></p>
+                  <%}); %>
+               </div> 
+            </div>
+            <div class="col-6">
+               <div id="chatroom"></div>
+               <form id="send_container"> 
+                  <input id="message" class="vertical-align" type="text" autocomplete="off"/>
+                  <button id="send_message" class="vertical-align" type="submit">Send</button>
+               </form>
+            </div>
+         </div>
+      </div>
    </body>
 </html>
